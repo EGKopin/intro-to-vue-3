@@ -6,5 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Playground — Complete Intro to Vue 3</title>
   </head>
-  <body></body>
+  <body>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <h1>
+      Vue Workshop
+    </h1>
+    <div id="app">
+      My App
+    </div>
+    <script>
+      const { createApp } = Vue
+      
+      const app = createApp()
+
+      app.mount('#app') //tells Vue where to actually put the app, using the div id
+    </script>
+  </body>
 </html>
