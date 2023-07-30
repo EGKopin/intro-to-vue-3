@@ -12,12 +12,27 @@
       Vue Workshop
     </h1>
     <div id="app">
-      My App
+      <p v-if="message.length % 2 === 0">Even: {{message.toUpperCase()}}</p>
+      <p v-else>Odd: {{message}}</p>
+      <ul>
+        <li v-for="number in listOfNumbers">{{number}}</li>
+      </ul>
     </div>
     <script>
-      const { createApp } = Vue
-      
-      const app = createApp()
+      // Vue 3
+      const { createApp } = Vue // this allows for more modularity than the Vue 2's approach
+
+      // Vue 2
+      // new Vue()
+
+      const app = createApp({
+        data () { //this gives a data property on the app object, and as a function causes updating on data changes; 'data' is a reserved keyword for this state data
+          return {
+            message: 'It works',
+            listOfNumbers: [1,2,3,4]
+          }
+        }
+      })
 
       app.mount('#app') //tells Vue where to actually put the app, using the div id
     </script>
