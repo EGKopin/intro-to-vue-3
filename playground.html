@@ -20,7 +20,7 @@
       <hr>
       <h1>Counter</h1>
       <p>{{ count }}</p>
-      <button v-on:click="incrementCount">Increment Count</button><!--This calls the reference to the function, which will be executed later. This is why it isn't called now-->
+      <button v-on:click="incrementCount(10, $event)">Increment Count</button><!--This calls the reference to the function, which will be executed later. This is why it isn't called now-->
       <div>
         <label for="incrementCount">Increment by:</label>
         <input type="number" 
@@ -50,9 +50,10 @@
           }
         },
         methods: {
-          incrementCount() {
+          incrementCount(number, event) {
             //count++ is not going to work because of SCOPING! It doesn't know where to fetch this count variable
             this.count += this.incrementAmount // can think of 'this' as referring to the App's configuration object
+            console.log('number', number, ', event', event)
           },
           // function below no longer needed, thanks to v-model's under the hood work
           // changeIncrementAmount (event) {
