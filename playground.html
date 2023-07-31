@@ -18,7 +18,9 @@
         <li v-for="number in listOfNumbers">{{number}}</li>
       </ul>
       <hr>
-      <h1>Counter</h1>
+      <!-- <h1>{{counterTitle}}</h1> --><!--This is for the watch of count-->
+      <h1>{{displayTitle}}</h1>
+      <h3>optimized amount: {{optimizedIncrementAmount}}</h3> This is dependent on 2 things now, example of tool chaining
       <p>{{ count }}</p>
       <button v-on:click="incrementCount(10, $event)">Increment Count</button><!--This calls the reference to the function, which will be executed later. This is why it isn't called now-->
       <div>
@@ -42,6 +44,7 @@
         data () { //this gives a data property on the app object, and as a function causes updating on data changes; 'data' is a reserved keyword for this state data
           return {
             message: 'It works',
+            counterTitle: 'Standard Counter',
             count: 0,
             incrementAmount: 4,
             listOfNumbers: [1,2,3,4]
@@ -51,13 +54,33 @@
           incrementCount(number, event) {
             //count++ is not going to work because of SCOPING! It doesn't know where to fetch this count variable
             this.count += this.incrementAmount // can think of 'this' as referring to the App's configuration object
-            console.log('number', number, ', event', event)
+            // console.log('number', number, ', event', event)
           },
           // function below no longer needed, thanks to v-model's under the hood work
           // changeIncrementAmount (event) {
           //   this.incrementAmount = Number(event.target.value)
           // }
-        }
+        },
+        computed: {
+          displayTitle() {
+            if (this.count > 20){
+              return 'Long Counter'
+            } else {
+              return 'Standard Counter'
+            }
+          },
+          optimizedIncrementAmount(){
+            return this.displayTitle.length * this.incrementAmount
+          }
+        },
+        // watch: {
+        //   count(newValue) { //need to have the default value parameter
+        //     console.log('being watched', newValue)
+        //     if(newValue > 20){
+        //       this.counterTitle += 'very Long'
+        //     }
+        //   }
+        // }
       })
 
       app.mount('#app') //tells Vue where to actually put the app, using the div id
