@@ -23,9 +23,7 @@
       <button v-on:click="incrementCount(10, $event)">Increment Count</button><!--This calls the reference to the function, which will be executed later. This is why it isn't called now-->
       <div>
         <label for="incrementCount">Increment by:</label>
-        <input type="number" 
-        v-model="incrementAmount"
-        />
+        <input type="number" v-model="incrementAmount" />
         <!-- 
         These used to be on the input, but were replaced by the v-model  
         v-bind:value="incrementAmount"

@@ -13,18 +13,51 @@
       -->
       <p v-if="characterList.length === 0">This is the empty state - there are no characters</p>
       <ul v-else>
-        <li v-for="(character, index) in characterList">{{ character.name }}'s Index is {{index}}</li>
+        <li v-for="(character, index) in characterList">
+          <p>{{ character.name }}'s Index is {{index}}</p>
+          <button v-on:click="toFavorite(character)">Favorite</button>
+          <label for="toFavorite"></label>
+        </li>
       </ul>
+      
+        <h2>Favorite Characters</h2>
+        <ul v-if="favoriteList.length > 0">
+          <li v-for="character in favoriteList">
+            {{character}}
+          </li>
+        </ul>
+        <p v-else>There are no favorites</p>
+      
+        <h2>Add Character</h2>
+        <pre>{{newCharacter}}</pre> <!--Pre element is great for formatting JSON objects-->
+        <label for="character-name">Name</label>
+        <input type="text" v-model="newCharacter.name" @keyup.enter="addNewCharacter">
     </div>
 
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script>
-      Vue.createApp({ //different syntax to do the same thing as in the playground
+      Vue.createApp({ //different syntax to do the same thing as in the playground, just using implicit return
         data: () => ({
+          newCharacter: {
+            name: ''
+          },
           characterList: [
-            {name: 'Aang'},{name:'Zuko'},{name: 'Toph'},{name: 'Katara'}
-          ]
-        })
+            {name: 'Aang'},
+            {name:'Zuko'},
+            {name: 'Toph'},
+            {name: 'Katara'}
+          ],
+          favoriteList: []
+        }),
+        methods: {
+          toFavorite (character) {
+            this.favoriteList.push(character)
+          },
+          addNewCharacter(){
+            this.characterList.push(this.newCharacter);
+            this.newCharacter = {name: ''}
+          }
+        }
       }).mount('#app')
     </script>
 
