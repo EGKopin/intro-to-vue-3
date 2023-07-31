@@ -17,6 +17,21 @@
       <ul>
         <li v-for="number in listOfNumbers">{{number}}</li>
       </ul>
+      <hr>
+      <h1>Counter</h1>
+      <p>{{ count }}</p>
+      <button v-on:click="incrementCount">Increment Count</button><!--This calls the reference to the function, which will be executed later. This is why it isn't called now-->
+      <div>
+        <label for="incrementCount">Increment by:</label>
+        <input type="number" 
+        v-model="incrementAmount"
+        />
+        <!-- 
+        These used to be on the input, but were replaced by the v-model  
+        v-bind:value="incrementAmount"
+        v-on:input="changeIncrementAmount" 
+        -->
+    </div>
     </div>
     <script>
       // Vue 3
@@ -29,8 +44,20 @@
         data () { //this gives a data property on the app object, and as a function causes updating on data changes; 'data' is a reserved keyword for this state data
           return {
             message: 'It works',
+            count: 0,
+            incrementAmount: 4,
             listOfNumbers: [1,2,3,4]
           }
+        },
+        methods: {
+          incrementCount() {
+            //count++ is not going to work because of SCOPING! It doesn't know where to fetch this count variable
+            this.count += this.incrementAmount // can think of 'this' as referring to the App's configuration object
+          },
+          // function below no longer needed, thanks to v-model's under the hood work
+          // changeIncrementAmount (event) {
+          //   this.incrementAmount = Number(event.target.value)
+          // }
         }
       })
 
